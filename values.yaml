@@ -1,0 +1,37 @@
+# Configuración de la aplicación
+appName: mi-aplicacion-sw
+
+# Configuración del Deployment
+replicaCount: 3
+image:
+  repository: ykzagorgonita/desafio13
+  tag: v3
+  pullPolicy: IfNotPresent
+
+# Configuración del Service
+service:
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30092
+
+# Configuración del PersistentVolume
+persistentVolume:
+  name: mi-webserver-sw-pv-sw
+  storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard
+  hostPath: "/var/www/html/"
+
+# Configuración del PersistentVolumeClaim
+persistentVolumeClaim:
+  name: mi-webserver-sw-pvc-sw
+  storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+
+# Configuración del volumen en el Deployment
+volumeMount:
+  name: mi-webserver-sw-pv-sw
+  mountPath: /var/www/html/
